@@ -1,4 +1,4 @@
-package com.skillbox.shop;
+package com.skillbox.shop.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

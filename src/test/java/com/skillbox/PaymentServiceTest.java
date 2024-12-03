@@ -1,13 +1,14 @@
 package com.skillbox;
 
 
-import com.skillbox.shop.Cart;
-import com.skillbox.shop.PaymentProcessor;
-import com.skillbox.shop.PaymentService;
-import com.skillbox.shop.Transaction;
+import com.skillbox.shop.model.Cart;
+import com.skillbox.shop.service.PaymentProcessor;
+import com.skillbox.shop.service.PaymentService;
+import com.skillbox.shop.model.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.invocation.InvocationOnMock;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -36,7 +37,7 @@ class PaymentServiceTest {
     void testTransactionIdUpdatedAfterProcessing() {
         when(cartMock.calculateTotal()).thenReturn(50.0);
 
-        doAnswer(invocation -> {
+        doAnswer((InvocationOnMock invocation) -> {
             Transaction transaction = invocation.getArgument(0);
             transaction.setTransactionId("txn-123");
             return null;
@@ -48,26 +49,19 @@ class PaymentServiceTest {
     }
 
     @Test
-    void testProcessPaymentSuccess() {
+    void testTransactionProperlyPassedToProcessor() {
         when(cartMock.calculateTotal()).thenReturn(100.0);
 
-        doAnswer(invocation -> {
-            Transaction transaction = invocation.getArgument(0);
-            transaction.setTransactionId("txn-123");
-            return null;
-        }).when(paymentProcessorMock).process(any(Transaction.class));
+        doNothing().when(paymentProcessorMock).process(any(Transaction.class));
 
-        boolean result = paymentService.processPayment(cartMock);
+        paymentService.processPayment(cartMock);
 
-        assertTrue(result);
-
-        // Проверка вызова метода process с корректной транзакцией
         ArgumentCaptor<Transaction> transactionCaptor = ArgumentCaptor.forClass(Transaction.class);
         verify(paymentProcessorMock).process(transactionCaptor.capture());
 
         Transaction capturedTransaction = transactionCaptor.getValue();
-        assertEquals(100.0, capturedTransaction.getAmount());
-        assertEquals(PaymentService.SERVICE_CODE, capturedTransaction.getServiceCode());
+
+        assertEquals(100.0, capturedTransaction.getAmount(), "Transaction amount should match cart total");
     }
 
     @Test

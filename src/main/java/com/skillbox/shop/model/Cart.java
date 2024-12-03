@@ -1,4 +1,4 @@
-package com.skillbox.shop;
+package com.skillbox.shop.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +12,9 @@ public class Cart {
     }
 
     public void addProduct(Product product, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
         CartItem item = cartItems.get(product.getId());
         if (item != null) {
             item.setQuantity(item.getQuantity() + quantity);

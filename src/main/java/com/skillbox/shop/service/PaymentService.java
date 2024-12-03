@@ -1,5 +1,7 @@
-package com.skillbox.shop;
+package com.skillbox.shop.service;
 
+import com.skillbox.shop.model.Cart;
+import com.skillbox.shop.model.Transaction;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

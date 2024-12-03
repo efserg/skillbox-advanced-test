@@ -1,4 +1,4 @@
-package com.skillbox.shop;
+package com.skillbox.shop.model;
 
 import java.time.LocalDateTime;
 import lombok.Data;

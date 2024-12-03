@@ -1,7 +1,10 @@
 package com.skillbox;
 
-import com.skillbox.shop.Cart;
-import com.skillbox.shop.Product;
+import com.skillbox.shop.model.Cart;
+import com.skillbox.shop.model.CartItem;
+import com.skillbox.shop.model.Product;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +19,7 @@ class CartTestWithSpy {
 
     @BeforeEach
     void setUp() {
-        cart = spy(new Cart()); // Создаем Spy на основе реального объекта
+        cart = spy(new Cart());
         product1 = new Product("1", "Widget", 10.0);
         product2 = new Product("2", "Gadget", 20.0);
     }
@@ -35,15 +38,17 @@ class CartTestWithSpy {
     @Test
     void testCalculateTotalWithSpy() {
         cart.addProduct(product1, 1);
-
-        doReturn(15.0).when(cart).calculateTotal(); // Заменяем поведение метода
-
-        // В тесте calculateTotal вернет измененное значение 15.0
+        doReturn(15.0).when(cart).calculateTotal();
+//        when(cart.calculateTotal()).thenReturn(15.0);
         double total = cart.calculateTotal();
         assertThat(total).isEqualTo(15.0);
 
-        // Проверяем, вызывался ли метод calculateTotal
         verify(cart, times(1)).calculateTotal();
+
+        assertThat(cart.getCartItems())
+                .containsEntry(product1.getId(), new CartItem(product1, 1));
+        CartItem cartItem = cart.getCartItems().get(product1.getId());
+        assertThat(cartItem.getProduct().getPrice()).isEqualTo(10.0);
     }
 
     @Test

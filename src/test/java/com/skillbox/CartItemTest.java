@@ -1,7 +1,7 @@
 package com.skillbox;
 
-import com.skillbox.shop.CartItem;
-import com.skillbox.shop.Product;
+import com.skillbox.shop.model.CartItem;
+import com.skillbox.shop.model.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

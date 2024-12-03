@@ -1,8 +1,8 @@
 package com.skillbox;
 
-import com.skillbox.shop.Cart;
-import com.skillbox.shop.CartItem;
-import com.skillbox.shop.Product;
+import com.skillbox.shop.model.Cart;
+import com.skillbox.shop.model.CartItem;
+import com.skillbox.shop.model.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CartTest {
 
+    // todo: добавить параметризованные тесты
     private Cart cart;
     private Product product1;
     private Product product2;
@@ -192,11 +193,11 @@ class CartTest {
         cart.addProduct(product2, 1);
         cart.addProduct(product1, 2);
 
-        List<String> actualProductIds = cart.getCartItems().values().stream()
-                .map(item -> item.getProduct().getId())
-                .collect(Collectors.toList());
+        Map<String, CartItem> actualCartItems = cart.getCartItems();
 
-        assertThat(actualProductIds).containsExactlyInAnyOrder("1", "2");
+        assertThat(actualCartItems.values())
+                .extracting(cartItem -> cartItem.getProduct().getName())
+                .containsExactlyInAnyOrder("Product 1", "Product 2");
     }
 }
 

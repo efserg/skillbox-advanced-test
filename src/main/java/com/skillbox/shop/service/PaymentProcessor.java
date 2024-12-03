@@ -1,8 +1,9 @@
-package com.skillbox.shop;
+package com.skillbox.shop.service;
+
+import com.skillbox.shop.model.Transaction;
 
 public interface PaymentProcessor {
 
     void process(Transaction transaction);
 
-    boolean isPaymentSuccessful(String transactionId);
 }
