@@ -10,7 +10,7 @@ public class CartItem {
     private int quantity;
 
     public void setQuantity(int quantity) {
-        if (quantity < 0) {
+        if (quantity < 1) {
             throw new IllegalArgumentException("Quantity must be greater than 0");
         }
         this.quantity = quantity;

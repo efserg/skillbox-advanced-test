@@ -12,7 +12,7 @@ public class Cart {
     }
 
     public void addProduct(Product product, int quantity) {
-        if (quantity <= 0) {
+        if (quantity < 1) {
             throw new IllegalArgumentException("Quantity must be greater than 0");
         }
         CartItem item = cartItems.get(product.getId());

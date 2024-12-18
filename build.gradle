@@ -1,7 +1,6 @@
 plugins {
     id 'application'
     id 'java'
-    id 'jacoco' // Добавление плагина Jacoco
 }
 
 repositories {
@@ -11,10 +10,7 @@ repositories {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
-
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
-    testImplementation 'org.mockito:mockito-core:5.5.0'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 application {
@@ -25,9 +21,3 @@ test {
     useJUnitPlatform()
 }
 
-// Конфигурация Jacoco для генерации отчетов
-jacocoTestReport {
-    reports {
-        html.enabled true
-    }
-}
