@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CartTest {
 
-    // todo: добавить параметризованные тесты
     private Cart cart;
     private Product product1;
     private Product product2;
