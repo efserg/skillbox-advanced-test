@@ -5,6 +5,7 @@ import com.skillbox.shop.model.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CartItemTest {
 
@@ -31,5 +32,12 @@ class CartItemTest {
         cartItem.setQuantity(3);
 
         assertEquals(3, cartItem.getQuantity());
+    }
+
+    @Test
+    void testNegativeQuantity() {
+        Product product = new Product("1", "Product 1", 10.0);
+        CartItem cartItem = new CartItem(product, 2);
+        assertThrows(IllegalArgumentException.class, () -> cartItem.setQuantity(-1));
     }
 }
