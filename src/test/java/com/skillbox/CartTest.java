@@ -30,6 +30,11 @@ class CartTest {
     }
 
     @Test
+    void testNegativeAmount()   {
+        assertThrows(IllegalArgumentException.class, () -> cart.addProduct(product1, -1));
+    }
+
+    @Test
     void testAddProduct() {
         cart.addProduct(product1, 5);
 
