@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'java'
+    id 'jacoco'
 }
 
 repositories {
@@ -21,3 +22,8 @@ test {
     useJUnitPlatform()
 }
 
+jacocoTestReport {
+    reports {
+        html.enabled true
+    }
+}
